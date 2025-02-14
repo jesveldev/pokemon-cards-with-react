@@ -2,7 +2,7 @@
 
 async function getData(url){
 
-	const fetching = await fetch(url).then(res=>res.json());
+	const fetching = await fetch(url).then(res=>res.json());	
 	return fetching;
 }
 

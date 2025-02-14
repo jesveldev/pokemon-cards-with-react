@@ -1,7 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
 
-
 const Form = styled.form`
 	background-color:transparent;
 	border:none;
@@ -51,11 +50,13 @@ const Submit = styled.input`
 	}
 `;
 
-export default function SearchBar({ref, func}){
+export default function SearchBar({children, ref, func, text}){
 	return (
-		<Form>
-			<Bar ref={ref} type='text' placeholder="Pokemon's name/ID"></Bar>
-			<Submit type='submit' onClick={func}></Submit>
-		</Form>
+		<>
+			<Form>
+				<Bar type='text' ref={ref} placeholder="Pokemon's name/ID" id='search-bar' name='search-bar'/>
+				<Submit type='submit' onClick={func} value={text}/>
+			</Form>
+		</>
 	);
 }

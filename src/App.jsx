@@ -4,17 +4,30 @@ import coincidencesFinder from './scripts/coincidencesFinder.js';
 import Article from './comps/Article.jsx';
 import SearchBar from './comps/SearchBar.jsx';
 
+import styled from 'styled-components';
+
   // ------------------------------------------
   // ------------------------------------------
   // ------------------------------------------
   // ------------------------------------------
   // ------------------------------------------
   // ------------------------------------------
+
+const Btn = styled.button`
+  background: linear-gradient(to right, #f953c6, #b91d73);
+  color:white;
+  font-size:1.2em;
+  padding:1% 2%;
+  border-radius:5px;
+  border:none;
+  cursor:pointer;
+  margin-top:2%;
+`;
 
 export default function App() {
 
   const [state, setState] = useState([]);
-  const searchBar = useRef();
+  const inputRef = useRef();
 
   // ------------------------------------------
   // ------------------------------------------
@@ -27,12 +40,12 @@ export default function App() {
 
     e.preventDefault();
 
-    if(searchBar.current.value==''){
+    if(inputRef.current.value==''){
       alert("Write a pokemon's ID or name");
       return null;
     }
 
-    const pokemon = searchBar.current.value;
+    const pokemon = inputRef.current.value;
 
     try{
 
@@ -43,15 +56,13 @@ export default function App() {
       console.log(fetching);
 
       const data = {
-        "key":Math.random()*1000/7.8283723891,
+        "key": fetching.name,
         "name": fetching.name,
         "front_default" : fetching.sprites.front_default,
         "back_default" : fetching.sprites.back_default
       };
 
       setState([data,...state]);
-
-      console.log(state);
 
     }catch(e){
       alert(e);
@@ -67,18 +78,24 @@ export default function App() {
 
   return(
     <>
-      <SearchBar ref={ searchBar } func={ addPokemon }/>
+      <SearchBar ref={ inputRef } func={ addPokemon } text='Search'/>
 
       { state.map(e=>{
-            <Article
-              key={e.key}
-              title={e.name=='giratina-altered'?'giratina':e.name}
-              fImg={ e.front_default }
-              sImg={ e.back_default }
-            />
+
+          // console.log([e.key,e.name,e.front_default,e.back_default]);
+        
+          return (<Article
+                key={e.key}
+                title={e.name=='giratina-altered'?'giratina':e.name}
+                fImg={ e.front_default }
+                sImg={ e.back_default }
+              />
+            );
           }
         )
       }
+
+      <Btn onClick={()=>console.log(state)}>Depuration</Btn>
     </>
   );
 }

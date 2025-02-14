@@ -70,7 +70,7 @@ const Img = styled.img`
 
 	// box-shadow: 0px 5px 5px 1px rgba(0,0,0,0.3);
 
-export default function Article({ title, content, time, fImg, sImg}){
+export default function Article({ title, fImg, sImg}){
 	return(
 		<Art>
 			<Header>
@@ -81,10 +81,6 @@ export default function Article({ title, content, time, fImg, sImg}){
 				<Img src={ fImg }/>
 				<Img src={ sImg }/>
 			</Fig>
-
-			<P>{ content }</P>
-
-			<Footer>{ time }</Footer>
 		</Art>
 	);
 } 
